@@ -4,6 +4,12 @@ const blogModal = document.querySelector(".blog__modal__body");
 // global 
 let globalStore = [];
 
+function escapeHTML(input)
+{
+	return input.replace(/\&/g, '\&amp;')	
+				.replace(/</g, '\&lt;')
+				.replace(/>/g, '\&gt;')
+}
 // -----------------------------------------------------
 // a function for creating a new card
 const newCard = ({
@@ -66,10 +72,10 @@ const updateLocalStorage = () => {
 const saveChanges = () => {
 	const blogData = {
 		id: `${Date.now()}`, // generating a unique id for each card
-		imageUrl: document.getElementById('imageurl').value,
-		blogTitle: document.getElementById('title').value,
-		blogType: document.getElementById('type').value,
-		blogDescription: document.getElementById('description').value
+		imageUrl: escapeHTML(document.getElementById('imageurl').value),
+		blogTitle: escapeHTML(document.getElementById('title').value),
+		blogType: escapeHTML(document.getElementById('type').value),
+		blogDescription: escapeHTML(document.getElementById('description').value)
 	};
 
 	const createNewBlog = newCard(blogData);
